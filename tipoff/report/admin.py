@@ -5,5 +5,8 @@ from .models import IncidentReport,Tracking
 class IncidentReportAdmin(admin.ModelAdmin):
     list_display = ['report_no', 'nature_of_report','station', 'date_of_incident']
 
+class TrackingAdmin(admin.ModelAdmin):
+    list_display = ['report_number','tracking_number','report_status','additional_details']
 
 admin.site.register(IncidentReport, IncidentReportAdmin)
+admin.site.register(Tracking, TrackingAdmin)

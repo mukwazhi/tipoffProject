@@ -1,9 +1,10 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
 from django.shortcuts import render
-from .forms import IncidentForm
+from .forms import IncidentForm, Tracking
 from django.core.mail import send_mail
 
 from .models import IncidentReport
@@ -25,9 +26,9 @@ def report_form(request):
                 ["to@example.com"],
                 fail_silently=False,
             )
-            # Tracking.objects.create(report_number=incidentform)
-            # tracking_token = Tracking.objects.all().last().id
-            # request.session['tracking_token'] = tracking_token
+            Tracking.objects.create(report_number=incidentform)
+            tracking_token = Tracking.objects.all().last().id
+            request.session['tracking_token'] = tracking_token
             return HttpResponseRedirect('thanks')
     else:
 
@@ -50,5 +51,23 @@ def thanks(request):
         return render(request, 'thanks.html',{})
 
     else:
-        return HttpResponseRedirect('/report_form/')
+        return HttpResponseRedirect(' ')
 
+def home(request):
+    context = {
+
+    }
+    return render(request, 'home.html', context)
+
+def track(request):
+    q = request.GET.get('q')
+    if  q:
+        try:
+            tracking = Tracking.objects.get(tracking_number=q)
+            return render(request,'tracker.html',{'tracking':tracking})
+        except ObjectDoesNotExist:
+            invalid = "Please enter a valid code"
+            return render(request, 'tracking_access.html', {"invalid": invalid})
+    else:
+
+        return render(request, 'tracking_access.html', {})
