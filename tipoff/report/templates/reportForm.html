@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkySafe | Aviation Whistleblowing Portal</title>
+       {% load static %}
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #003366;
+            --secondary: #D4AF37;
+            --light: #F5F5F5;
+            --dark: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            background-color: #f8f9fa;
+        }
+
+        .bg-aviation {
+            background-color: var(--primary);
+        }
+
+        .text-aviation {
+            color: var(--primary);
+        }
+
+        .bg-accent {
+            background-color: var(--secondary);
+        }
+
+        .text-accent {
+            color: var(--secondary);
+        }
+
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .form-container {
+            max-width: 700px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            margin: 40px auto;
+        }
+
+        .form-title {
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        .form-control, select, textarea {
+            font-size: 0.9rem;
+            padding: 8px;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            padding: 8px 25px;
+            font-weight: 500;
+        }
+
+        .btn-submit:hover {
+            background-color: #002244;
+            border-color: #002244;
+        }
+
+        .required-field::after {
+            content: " *";
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-aviation sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="aviation-logo.png" alt="SkySafe Logo" height="50" class="me-3">
+                <div>
+                    <h1 class="h5 mb-0">SkySafe</h1>
+                    <span class="text-accent small">Aviation Whistleblowing Portal</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#report">File Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#protection">Your Protection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Form Content -->
+    <main class="container my-5" id="report">
+        <div class="form-container">
+            <h3 class="form-title text-center"><i class="fas fa-shield-alt me-2"></i>Aviation Safety Tip-off Form</h3>
+            <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+                <input type="hidden" >
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="id_station" class="form-label required-field">Station</label>
+                        <select name="station" class="form-select" id="id_station">
+                            <option value="" selected disabled>Select Airport</option>
+                           {% for value, label in incidentform.station.field.choices %}
+                                <option value="{{ value }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6" id="other_station_div" style="display: none;">
+                        <label for="id_other_station" class="form-label">Other Station</label>
+                        <input type="text" name="other_station" class="form-control" id="id_other_station">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="id_nature_of_report" class="form-label required-field">Nature of Report</label>
+                        <select name="nature_of_report" class="form-select" id="id_nature_of_report">
+                            <<option value="" selected disabled>Select station</option>
+                           {% for value, label in incidentform.nature_of_report.field.choices %}
+                                <option value="{{ value }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                        </select>
+                    </div>
+                    <div class="col-md-6" id="other_nature_div" style="display: none;">
+                        <label for="id_other_nature" class="form-label">Other </label>
+                        <input type="text" name="other_nature" class="form-control" id="id_other_nature">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="id_date_of_incident" class="form-label required-field">Date of Incident</label>
+                        <input type="date" name="date_of_incident" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_time_of_incident" class="form-label required-field">Time of Incident</label>
+                        <input type="time" name="time_of_incident" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_location_of_incident" class="form-label required-field">Location of Incident</label>
+                    <input type="text" name="location_of_incident" class="form-control" placeholder="e.g., Hangar 4, Gate B12, Flight 123" required>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="id_incident_detail" class="form-label required-field">Incident Details</label>
+                    <textarea name="incident_detail" class="form-control" rows="5" placeholder="Please provide as much detail as possible about the incident..." required></textarea>
+                    <div class="form-text">Be specific about what happened, who was involved, and any other relevant information.</div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="id_upload_evidence" class="form-label">Upload Evidence (Optional)</label>
+                    <input type="file" name="upload_evidence" class="form-control">
+                    <div class="form-text">You may attach documents, photos, or other files (max 10MB). All uploads are encrypted.</div>
+                </div>
+                 <!-- NEW CONTACT INFORMATION SECTION -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fas fa-user-circle me-2"></i>Your Contact Information (Optional)
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="id_full_name" class="form-label">Full Name</label>
+                                <input type="text" name="Full_Name" class="form-control" id="id_full_name" placeholder="John Doe">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="id_position_title" class="form-label">Position/Title</label>
+                                <input type="text" name="Position_Title" class="form-control" id="id_position_title" placeholder="e.g., Maintenance Supervisor">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id_phone_no" class="form-label">Phone Number</label>
+                                <input type="tel" name="Phone_no" class="form-control" id="id_phone_no" placeholder="+1 (555) 123-4567">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="id_email" class="form-label">Email Address</label>
+                                <input type="email" name="email" class="form-control" id="id_email" placeholder="your.email@example.com">
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info mt-3 mb-0">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Providing contact information is optional. If provided, it will only be used to follow up on your report and will be kept confidential.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="reset" class="btn btn-outline-secondary me-md-2">Clear Form</button>
+                    <button type="submit" class="btn btn-submit text-white">
+                        <i class="fas fa-paper-plane me-2"></i>Submit Anonymously
+                    </button>
+                </div>
+
+                <div class="mt-4 p-3 bg-light rounded">
+                    <h6 class="text-aviation"><i class="fas fa-lock me-2"></i>Your Privacy & Protection</h6>
+                    <p class="small mb-0">This form is completely confidential. Your identity will not be disclosed unless you choose to provide it. All submissions are encrypted and protected under aviation whistleblower laws.</p>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-aviation text-white pt-5" id="contact">
+        <div class="container pt-4">
+            <div class="row g-4">
+                <div class="col-lg-3">
+                    <h5 class="text-accent">SkySafe Aviation</h5>
+                    <p>Maintaining aviation safety and integrity through confidential, protected reporting channels for industry professionals.</p>
+                </div>
+                <div class="col-lg-3">
+                    <h5 class="text-accent">Reporting Channels</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-globe me-2"></i> <a href="#" class="text-white">Secure Online Form</a></li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i> Hotline: 1-800-SKY-SAFE</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> reports@skysafe-aviation.com</li>
+                        <li class="mb-2"><i class="fas fa-lock me-2"></i> PGP Key: 0x1A2B3C4D5E6F</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5 class="text-accent">Resources</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white">FAA Whistleblower Program</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">ICAO Safety Reporting</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">EU Aviation Safety Reporting</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">Whistleblower Protection Laws</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5 class="text-accent">Emergency Contacts</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-exclamation-triangle me-2"></i> Immediate Safety Threat: Contact local aviation authority</li>
+                        <li class="mb-2"><i class="fas fa-plane me-2"></i> FAA Hotline: 1-800-255-1111</li>
+                        <li class="mb-2"><i class="fas fa-globe-europe me-2"></i> EASA Confidential Reporting</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-secondary">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p class="mb-0">&copy; 2023 SkySafe Aviation Whistleblowing Portal. All rights reserved. | <a href="#" class="text-white">Privacy Policy</a> | <a href="#" class="text-white">Terms of Use</a></p>
+                    <p class="small mt-2">This system complies with 49 U.S.C. § 42121 and ICAO Annex 19 provisions for aviation safety reporting.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Show/hide other station field
+            $('#id_station').change(function() {
+                $('#other_station_div').toggle($(this).val() === 'Other');
+                if ($(this).val() !== 'Other') {
+                    $('#id_other_station').val('');
+                }
+            });
+
+            // Show/hide other nature field
+            $('#id_nature_of_report').change(function() {
+                $('#other_nature_div').toggle($(this).val() === 'Other');
+                if ($(this).val() !== 'Other') {
+                    $('#id_other_nature').val('');
+                }
+            });
+
+            // Set current date as default for incident date
+            const today = new Date().toISOString().split('T')[0];
+            $('input[type="date"]').attr('value', today);
+        });
+    </script>
+</body>
+</html>

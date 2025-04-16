@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlightSafe | NHS Whistleblowing Portal</title>
+    {% load static %}
+    <style>
+        :root {
+            --primary: #003366; /* Deep aviation blue */
+            --secondary: #D4AF37; /* Gold accent */
+            --light: #F5F5F5;
+            --dark: #333333;
+            --safe: #4CAF50;
+            --warning: #FFC107;
+            --danger: #F44336;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 20px;
+            margin-right: 15px;
+        }
+
+        .logo-text h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            display: block;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('aviation-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--primary);
+            padding: 12px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #e6c233;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+            margin-left: 15px;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .features {
+            padding: 4rem 0;
+            background-color: var(--light);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        .how-it-works {
+            padding: 4rem 0;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 0 1rem;
+            position: relative;
+        }
+
+        .step-number {
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: bold;
+        }
+
+        .step:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            top: 20px;
+            right: -20px;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .report-types {
+            padding: 4rem 0;
+            background-color: var(--light);
+        }
+
+        .types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .type-card {
+            background-color: white;
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .type-card h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .protection {
+            padding: 4rem 0;
+        }
+
+        .protection-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary);
+            margin-top: 0;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-column ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0 10px;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .btn {
+                display: block;
+                margin: 10px auto;
+                max-width: 200px;
+            }
+
+            .btn-outline {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .step {
+                flex: 100%;
+                margin-bottom: 2rem;
+            }
+
+            .step:not(:last-child)::after {
+                display: none;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="aviation-logo.png" alt="SkySafe Logo">
+                    <div class="logo-text">
+                        <h1>FlightSafe</h1>
+                        <span>NHS Whistleblowing Portal</span>
+                    </div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#report">Report Concerns</a></li>
+                        <li><a href="#protection">Your Protection</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Protecting Aviation Safety Through Ethical Reporting</h2>
+            <p>SkySafe provides a secure, confidential channel for aviation professionals to report safety violations, maintenance concerns, operational misconduct, or regulatory non-compliance. Your courage in speaking up helps maintain the highest standards of safety in our industry.</p>
+            <a href="{% url 'report_form'%}" class="btn">File a Confidential Report</a>
+            <a href="#protection" class="btn btn-outline">Track A Report </a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Report Through SkySafe?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-user-shield"></i>
+                    <h3>Strict Confidentiality</h3>
+                    <p>Your identity remains protected throughout the process. We use advanced anonymization techniques to ensure your report cannot be traced back to you unless you choose to disclose your identity.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-lock"></i>
+                    <h3>Military-Grade Security</h3>
+                    <p>Our platform uses end-to-end encryption meeting aviation industry security standards. All data is stored securely with multiple layers of protection against unauthorized access.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-plane"></i>
+                    <h3>Aviation Expertise</h3>
+                    <p>Reports are handled by investigators with aviation operational experience who understand the technical aspects and regulatory framework of our industry.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="report">
+        <div class="container">
+            <h2 class="section-title">How to Report Aviation Concerns</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Prepare Information</h3>
+                    <p>Gather relevant details: dates, locations, aircraft/crew involved, and any supporting evidence you can provide without compromising your identity.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Choose Reporting Method</h3>
+                    <p>Use our secure web form, encrypted email, or dedicated hotline. All methods guarantee confidentiality.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Submit Your Report</h3>
+                    <p>Provide as much detail as possible. You'll receive a confidential case number for follow-up.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Investigation Begins</h3>
+                    <p>Our aviation specialists review your concern and initiate appropriate investigation procedures while protecting your identity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="report-types">
+        <div class="container">
+            <h2 class="section-title">What Should Be Reported</h2>
+            <div class="types-grid">
+                <div class="type-card">
+                    <h3>Safety Violations</h3>
+                    <p>Deliberate disregard for safety protocols, unauthorized procedure changes, or actions that compromise flight safety.</p>
+                </div>
+                <div class="type-card">
+                    <h3>Maintenance Concerns</h3>
+                    <p>Inadequate maintenance, falsified records, deferred critical repairs, or use of unapproved parts.</p>
+                </div>
+                <div class="type-card">
+                    <h3>Regulatory Non-Compliance</h3>
+                    <p>Violations of FAA, EASA, or other aviation authority regulations, including duty time limitations.</p>
+                </div>
+                <div class="type-card">
+                    <h3>Ethical Violations</h3>
+                    <p>Fraud, bribery, conflicts of interest, or other misconduct that could impact aviation safety or integrity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="protection" id="protection">
+        <div class="container">
+            <div class="protection-content">
+                <h2 class="section-title">Whistleblower Protections</h2>
+                <p>The aviation industry is governed by strong whistleblower protection laws including the <strong>Wendell H. Ford Aviation Investment and Reform Act</strong> (49 U.S.C. § 42121) and <strong>Dodd-Frank Act</strong> protections.</p>
+
+                <h3>Your Rights Include:</h3>
+                <ul>
+                    <li><strong>Confidentiality:</strong> We will not disclose your identity without your consent, except when required by law.</li>
+                    <li><strong>Non-Retaliation:</strong> Federal law prohibits retaliation against whistleblowers in the aviation industry.</li>
+                    <li><strong>Legal Remedies:</strong> If retaliated against, you may be entitled to reinstatement, back pay, and other damages.</li>
+                    <li><strong>Anonymous Reporting:</strong> Our system allows completely anonymous reporting while maintaining communication channels.</li>
+                </ul>
+
+                <p>All reports are handled in accordance with ICAO Annex 19 Safety Management provisions and applicable national laws.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>SkySafe Aviation</h3>
+                    <p>Maintaining aviation safety and integrity through confidential, protected reporting channels for industry professionals.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Reporting Channels</h3>
+                    <ul>
+                        <li><i class="fas fa-globe"></i> <a href="#">Secure Online Form</a></li>
+                        <li><i class="fas fa-phone"></i> Hotline: 1-800-SKY-SAFE</li>
+                        <li><i class="fas fa-envelope"></i> reports@skysafe-aviation.com</li>
+                        <li><i class="fas fa-lock"></i> PGP Key: 0x1A2B3C4D5E6F</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">FAA Whistleblower Program</a></li>
+                        <li><a href="#">ICAO Safety Reporting</a></li>
+                        <li><a href="#">EU Aviation Safety Reporting</a></li>
+                        <li><a href="#">Whistleblower Protection Laws</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Emergency Contacts</h3>
+                    <ul>
+                        <li><i class="fas fa-exclamation-triangle"></i> Immediate Safety Threat: Contact local aviation authority</li>
+                        <li><i class="fas fa-plane"></i> FAA Hotline: 1-800-255-1111</li>
+                        <li><i class="fas fa-globe-europe"></i> EASA Confidential Reporting</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 FlightSafe NHS Whistleblowing Portal. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+                <p><small>This system complies NHS Whistleblower Policy reporting.</small></p>
+            </div>
+        </div>
+    </footer>
+  <script>
+        $(document).ready(function() {
+            $('#id_station').change(function() {
+                $('#other_station_div').toggle($(this).val() === 'Other');
+            });
+
+            $('#id_nature_of_report').change(function() {
+                $('#other_nature_div').toggle($(this).val() === 'Other');
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

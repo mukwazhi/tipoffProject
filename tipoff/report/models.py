@@ -55,11 +55,11 @@ class IncidentReport(models.Model):
     time_of_incident = models.TimeField()
     location_of_incident = models.CharField(max_length=100, null=False, blank=False)
     # specific_location = models.CharField(max_length=100)
-    # ------------Parties-involved---------------------#
-    name_of_party_involved = models.CharField(max_length=100, null=True, blank=True)
-    organisation = models.CharField(max_length=100, null=True, blank=True)
-    gender = models.CharField(max_length=100, null=True, blank=True)
-    role = models.CharField(max_length=100, null=True, blank=True)
+    # # ------------Parties-involved---------------------#
+    # name_of_party_involved = models.CharField(max_length=100, null=True, blank=True)
+    # organisation = models.CharField(max_length=100, null=True, blank=True)
+    # gender = models.CharField(max_length=100, null=True, blank=True)
+    # role = models.CharField(max_length=100, null=True, blank=True)
     # ---------------------------Incident--Detail---------------------------------------------------#
     incident_detail = models.TextField(max_length=3000, null=False, blank=False)
     # ----------------------------Upload--Supporting--evidence-----------------------------------------------#

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- [Previous head content remains exactly the same] -->
+</head>
+<body>
+    <!-- [Navigation remains exactly the same] -->
+
+    <!-- Main Form Content -->
+    <main class="container my-5" id="report">
+        <div class="form-container">
+            <h3 class="form-title text-center"><i class="fas fa-shield-alt me-2"></i>Aviation Safety Tip-off Form</h3>
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" name="csrfmiddlewaretoken" value="wDaPNJiMbQjNyErxZ6QOR6kbCQYp41g3aUZ0p3g8KmXt580OkEnnfosTQr9VSYfY">
+
+                <!-- [Previous form sections remain exactly the same until the upload evidence section] -->
+
+                <div class="mb-4">
+                    <label for="id_upload_evidence" class="form-label">Upload Evidence (Optional)</label>
+                    <input type="file" name="upload_evidence" class="form-control">
+                    <div class="form-text">You may attach documents, photos, or other files (max 10MB). All uploads are encrypted.</div>
+                </div>
+
+                <!-- NEW CONTACT INFORMATION SECTION -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fas fa-user-circle me-2"></i>Your Contact Information (Optional)
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="id_full_name" class="form-label">Full Name</label>
+                                <input type="text" name="Full_Name" class="form-control" id="id_full_name" placeholder="John Doe">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="id_position_title" class="form-label">Position/Title</label>
+                                <input type="text" name="Position_Title" class="form-control" id="id_position_title" placeholder="e.g., Maintenance Supervisor">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id_phone_no" class="form-label">Phone Number</label>
+                                <input type="tel" name="Phone_no" class="form-control" id="id_phone_no" placeholder="+1 (555) 123-4567">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="id_email" class="form-label">Email Address</label>
+                                <input type="email" name="email" class="form-control" id="id_email" placeholder="your.email@example.com">
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info mt-3 mb-0">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Providing contact information is optional. If provided, it will only be used to follow up on your report and will be kept confidential.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="reset" class="btn btn-outline-secondary me-md-2">Clear Form</button>
+                    <button type="submit" class="btn btn-submit text-white">
+                        <i class="fas fa-paper-plane me-2"></i>Submit Report
+                    </button>
+                </div>
+
+                <div class="mt-4 p-3 bg-light rounded">
+                    <h6 class="text-aviation"><i class="fas fa-lock me-2"></i>Your Privacy & Protection</h6>
+                    <p class="small mb-0">This form is completely confidential. Your identity will not be disclosed unless you choose to provide it. All submissions are encrypted and protected under aviation whistleblower laws.</p>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- [Footer remains exactly the same] -->
+
+    <!-- [JavaScript remains exactly the same] -->
+</body>
+</html>
